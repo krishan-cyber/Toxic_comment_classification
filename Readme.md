@@ -29,5 +29,60 @@ Toxic Comment Classification/
 │
 ├── data_augmentation.py          # Script to augment the dataset
 └── data_preprocess.py              # Common data preprocessing utilities  
+```
+## Training,Testing,Deploying model on your own
+1. Download python version==3.11.0 from https://www.python.org/downloads/
+2. open command pallete and run "pip install -r requirements.txt"
+3. run on command pallete "cd src" then "python data_augmentation.py"
+4. run cd "src/data exploration" then python python data_exploartion.py to exploartory data analysis out will be found at src/data exploration/plots
+5. choose model to train
+6.  for model_bert_svm   run cd src/model_bert_svm and then python train_evaluate_python.py
+7.  for model_tfidf run cd src/model_tfidf_svm and then python train_and_evaluate_model.py
+8.  model evaluation data will be found at respective model directory
+9.  trained model can be found at models/
+10.  move trained model to classifier_api_backend/detector
+11.  run the django server
+
+
+
+
+
+
+
+## This project also provides Api
+## API Usage Instructions
+
+**Endpoint:** `/api/predict/`  
+**Method:** `POST`  
+**Content-Type:** `application/json`
+
+### Request Body (JSON)
+```json
+{
+  "text": "I hate you!"
+}
+```
+
+### Response Body (JSON)
+```json
+{
+  "prediction": 1,
+  "class_name": "Offensive Language",
+  "probabilities": {
+    "Hate Speech": 0.05,
+    "Offensive Language": 0.91,
+    "Normal": 0.04
+  }
+}
+```
+
+### Class Labels
+- `0` = Hate Speech  
+- `1` = Offensive Language  
+- `2` = Normal  
+
+Note: This API only supports English text.
+
+
        
          
