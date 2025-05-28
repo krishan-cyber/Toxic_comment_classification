@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Toxic Comment Classifier</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f0f2f5;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            width: 60%;
+            margin: auto;
+            margin-top: 5%;
+            background-color: #fff;
+            padding: 30px 40px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        textarea {
+            width: 100%;
+            height: 120px;
+            padding: 15px;
+            font-size: 16px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            resize: none;
+            margin-bottom: 10px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            background-color: #007bff;
+            border: none;
+            border-radius: 8px;
+            color: white;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        .note {
+            color: #777;
+            font-size: 14px;
+            margin-top: 5px;
+            text-align: center;
+        }
+
+        .result {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 18px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .instructions {
+            margin-top: 40px;
+            padding: 20px;
+            background-color: #f7f7f7;
+            border-left: 5px solid #007bff;
+            font-size: 15px;
+            line-height: 1.6;
+        }
+
+        pre {
+            background: #f1f1f1;
+            padding: 10px;
+            border-radius: 6px;
+        }
+
+        .code {
+            font-family: monospace;
+            background-color: #e8e8e8;
+            padding: 4px 8px;
+            border-radius: 4px;
+        }
+    </style>
+    
+    <script>
+        setTimeout(() => {
+            const resultBox = document.getElementById('result-box');
+            if (resultBox) {
+                resultBox.innerText = "";
+            }
+        }, 30000);
+         function toggleApi() {
+        const box = document.getElementById('apiBox');
+        box.style.display = box.style.display === 'none' ? 'block' : 'none';
+    } 
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>Toxic Comment Classification System</h1>
+        <form method="post" autocomplete="off">
+            {% csrf_token %}
+            <textarea name="text" placeholder="Enter text..."></textarea>
+            <button type="submit">Detect</button>
+        </form>
+        <div class="note">
+            🔤 This model currently works only with <strong>English language</strong> text.
+        </div>
+
+        {% if result is not None %}
+            <div class="result" id="result-box">
+                Prediction: {{ result }}
+            </div>
+        {% endif %}
+<!---
+        
+            
+
+            
+        </div>
+    </div>
+-->
+<p style="margin-top: 70px;">
+    <a href="javascript:void(0);" onclick="toggleApi()" style="color: #007bff; text-decoration: underline;">Access our API</a> 
+</p>
+
+<div id="apiBox" style="display: none; background-color: #f4f4f4; border-left: 4px solid #007bff; padding: 15px; margin-top: 10px; border-radius: 6px;">
+    <h3>API Usage Instructions</h3>
+    <p><strong>Endpoint:</strong> <code>/api/predict/</code></p>
+    <p><strong>Method:</strong> POST</p>
+    <p><strong>Request Body (JSON):</strong></p>
+    <pre style="background-color: #fff; padding: 10px; border: 1px solid #ccc; border-radius: 4px;">
+{
+  "text": "I hate you!"
+}
+    </pre>
+    <p><strong>Response Body (JSON):</strong></p>
+    <pre style="background-color: #fff; padding: 10px; border: 1px solid #ccc; border-radius: 4px;">
+{
+  
+  "prediction": 1,
+  "class_name": "Offensive Language",
+  "probabilities": {
+    "Hate Speech": 0.05,
+    "Offensive Language": 0.91,
+    "Normal": 0.04
+  }
+}
+    </pre>
+    <p><strong>Class Labels:</strong></p>
+            <ul>
+                <li><code>0</code> = Hate Speech</li>
+                <li><code>1</code> = Offensive Language</li>
+                <li><code>2</code> = Normal</li>
+            </ul>
+    <p><em>Note: This API only supports English text.</em></p>
+</div>
+
+
+
+</body>
+</html>
