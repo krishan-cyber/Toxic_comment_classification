@@ -30,24 +30,68 @@ Toxic Comment Classification/
 ├── data_augmentation.py          # Script to augment the dataset
 └── data_preprocess.py              # Common data preprocessing utilities  
 ```
-## Training,Testing,Deploying model on your own
-1. Download python version==3.11.0 from https://www.python.org/downloads/
-2. open command pallete and run "pip install -r requirements.txt"
-3. run on command pallete "cd src" then "python data_augmentation.py"
-4. run cd "src/data exploration" then python python data_exploartion.py to exploartory data analysis out will be found at src/data exploration/plots
-5. choose model to train
-6.  for model_bert_svm   run cd src/model_bert_svm and then python train_evaluate_python.py
-7.  for model_tfidf run cd src/model_tfidf_svm and then python train_and_evaluate_model.py
-8.  model evaluation data will be found at respective model directory
-9.  trained model can be found at models/
-10.  move trained model to classifier_api_backend/detector
-11.  run the django server
+<br>
+<br>
 
+## Training, Testing, and Deploying the Model
 
+### Prerequisites
+1. Install Python version **3.11.0** from [python.org](https://www.python.org/downloads/).
+2. Open your terminal or command palette and install dependencies:
+   ```bash
+   pip install -r requirements.txt
+   ```
 
+### Data Preparation
+3. Navigate to the source directory and run data augmentation:
+   ```bash
+   cd src
+   python data_augmentation.py
+   ```
 
+4. Run exploratory data analysis (plots will be saved in `src/data exploration/plots`):
+   ```bash
+   cd "src/data exploration"
+   python data_exploration.py
+   cd ..
+   ```
 
+### Model Training
+5. Choose a model to train:
 
+#### For BERT + SVM Model:
+   ```bash
+   cd src/model_bert_svm
+   python train_evaluate.py
+   cd ..
+   ```
+
+#### For TF-IDF + SVM Model:
+   ```bash
+   cd src/model_tfidf_svm
+   python train_and_evaluate_model.py
+   cd ..
+   ```
+
+6. Model evaluation outputs will be saved in their respective model directories.
+
+7. Trained model files will be stored in the `models/` directory.
+
+### Deployment
+8. Move the desired trained model to the Django project for deployment:
+   ```bash
+   mv models/<model_file>.joblib ../classifier_api_backend/detector/
+   ```
+
+9. Start the Django server:
+   ```bash
+   cd ../classifier_api_backend
+   python manage.py runserver
+   ```
+
+**Note:** Make sure paths are entered exactly as shown to avoid path errors.
+<br>
+<br>
 
 ## This project also provides Api
 ## API Usage Instructions
